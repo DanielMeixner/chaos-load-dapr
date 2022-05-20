@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backendapp-c  
+  labels:
+    app: backendapp-c    
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backendapp-c
+  minReadySeconds: 1
+  strategy:
+    type: RollingUpdate    
+  template:
+    metadata:
+      annotations:
+          dapr.io/enabled: "true"
+          dapr.io/app-id: "backendapp-c"          
+          dapr.io/app-port: "80"
+          dapr.io/config: "appconfig"
+          dapr.io/log-level: "debug"          
+      labels:
+        app: backendapp-c        
+    spec:
+      containers:
+      - name: backendapp-c        
+        image: danielmeixner/generichttpendpoint
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
+        ports:
+          - containerPort: 80
+            name: http         
+            protocol: TCP
+        env: 
+          - name: "PORT"
+            value: "80"          
+          - name: "APPINSIGHTS_INSTRUMENTATIONKEY"
+            value: "917bb16b-a918-4192-9949-d9151240aeb7"  
+          - name: "TARGETURL"
+            value: "http://dmx-getrandom.azurewebsites.net/api/HttpTriggerCSharp1"          
+          - name: "TIMEOUT"
+            value: "500"
+          - name: "INSTANCENAME"
+            value: instanceC
+---
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backendapp-c
+  labels:
+    name: backendapp-c    
+spec:
+  selector:
+    app: backendapp-c
+  type: LoadBalancer
+  ports:
+   - port: 80
+     name: http
+     targetPort: 80
+     protocol: TCP
+---     

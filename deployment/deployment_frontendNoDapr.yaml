@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fe-no-dapr  
+  labels:
+    app: fe-no-dapr    
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fe-no-dapr
+  minReadySeconds: 1
+  strategy:
+    type: RollingUpdate    
+  template:
+    metadata:
+      annotations:
+                   
+      labels:
+        app: fe-no-dapr        
+    spec:
+      containers:
+      - name: fe-no-dapr        
+        image: danielmeixner/generichttpendpoint
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
+        ports:
+          - containerPort: 80
+            name: http         
+            protocol: TCP
+        env: 
+          - name: "PORT"
+            value: "80"          
+          - name: "APPINSIGHTS_INSTRUMENTATIONKEY"
+            value: "917bb16b-a918-4192-9949-d9151240aeb7"  
+          - name: "TARGETURL"
+            value: "http://backendapp-c"              
+          - name: "TIMEOUT"
+            value: "5000"
+          - name: "INSTANCENAME"
+            value: instanceNoDaprFrontend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fe-no-dapr
+  labels:
+    name: fe-no-dapr    
+spec:
+  selector:
+    app: fe-no-dapr
+  type: LoadBalancer
+  ports:
+   - port: 80
+     name: http
+     targetPort: 80
+     protocol: TCP
+---     
+
+

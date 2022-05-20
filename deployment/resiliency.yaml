@@ -1,0 +1,24 @@
+apiVersion: dapr.io/v1alpha1
+kind: Resiliency
+metadata:
+  name: myresiliency
+spec:
+  policies:
+    timeouts:
+      general: 1s   
+    retries:      
+      retry100times:
+        policy: constant
+        duration: 200ms
+        maxRetries: 100
+    # circuitBreakers:
+    #   cb8inSequence:
+    #     maxRequests: 1
+    #     interval: 8s
+    #     timeout: 45s
+    #     trip: consecutiveFailures > 8      
+  targets:
+    apps:
+      backendapp-c:
+        retry: retry100times
+   
