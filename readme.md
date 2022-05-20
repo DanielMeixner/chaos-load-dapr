@@ -39,7 +39,8 @@ If the request was triggered by the frontend without dapr enabled, error 500 wil
 
 If the request was triggered by the frontend with dapr enabled, the retry policy will kick in.
 
-
+## Tips
+You can do yourself a favor and use Rest Client extension in Visual Studio Code. This allows you to simply execute rest calls. Just adjust the IPs in test/test.http
 
 
 
