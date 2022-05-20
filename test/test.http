@@ -1,0 +1,20 @@
+### Requires "REST Client" in Visual Studio Code
+### This allows a simple test right out of VSC.
+### Adust the IP adresses below. Run kubectl get svc to figure out the public IPs of your services.
+### https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+
+
+### Call DAPR-enabled endpoint in cluster (frontendapp-a)
+http://20.82.210.233/
+
+
+### Call endpoint without DAPR (fe-no-dapr)
+http://20.82.210.173/
+
+### Call endpoint backendapp-c
+http://20.82.210.114/
+
+### Call your external service
+### This could be any http endpoint (even google.com)
+### Just make sure this endpoint is configured in the backendapp-C as targeturl
+http://20.238.1.195/

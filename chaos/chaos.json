@@ -1,0 +1,19 @@
+{
+  "action": "delay",
+  "mode": "one",
+  "direction": "to",
+  "externalTargets": [
+    "dmx-getrandom.azurewebsites.net"
+  ],
+  "selector": {
+    "namespaces": [
+      "default"
+    ],
+    "labelSelectors": {
+      "app": "backendapp-c"
+    }
+  },
+  "delay": {
+    "latency": "5000ms"
+  }
+}
