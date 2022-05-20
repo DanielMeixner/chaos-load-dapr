@@ -7,7 +7,7 @@ spec:
     samplingRate: "1"
     zipkin:
       endpointAddress: "http://zipkin.default.svc.cluster.local:9411/api/v2/spans"
-  feature:
-    name: Resiliency
-    enabeled: true
+  features:
+    - name: Resiliency
+      enabled: true
   
