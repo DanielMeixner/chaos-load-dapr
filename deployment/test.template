@@ -7,18 +7,18 @@
 ### Call DAPR-enabled endpoint in cluster (frontendapp-a)
 ###
 ### -->A-->C-->function
-http://51.104.142.104/
+http://FE_DAPR/
 
 
 ### Call endpoint without DAPR (fe-no-dapr)
 ###
 ### -->A_nodapr-->C-->function
-http://20.105.68.112/
+http://FE_NO_DAPR/
 
 ### Call endpoint backendapp-c
 ###
 ### -->C-->function
-http://20.82.210.114/
+http://BACKEND/
 
 ### Call your external service
 ### This could be any http endpoint (even google.com)

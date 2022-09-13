@@ -37,8 +37,7 @@ spec:
         env: 
           - name: "PORT"
             value: "80"          
-          - name: "APPINSIGHTS_INSTRUMENTATIONKEY"
-            value: "917bb16b-a918-4192-9949-d9151240aeb7"  
+
           - name: "TARGETURL"
             value: "http://backendapp-c"              
           - name: "TIMEOUT"

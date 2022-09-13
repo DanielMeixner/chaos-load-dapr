@@ -44,9 +44,7 @@ spec:
           - name: "TARGETURL"
             value: "http://localhost:3500/v1.0/invoke/backendapp-c/method/"   
           - name: "INSTANCENAME"
-            value: instanceA
-          - name: "APPINSIGHTS_INSTRUMENTATIONKEY"
-            value: "917bb16b-a918-4192-9949-d9151240aeb7"  
+            value: instanceA        
           - name: "TIMEOUT"
             value: "5000"
 ---

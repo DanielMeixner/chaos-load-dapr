@@ -10,13 +10,7 @@ spec:
       retry100times:
         policy: constant
         duration: 200ms
-        maxRetries: 100
-    # circuitBreakers:
-    #   cb8inSequence:
-    #     maxRequests: 1
-    #     interval: 8s
-    #     timeout: 45s
-    #     trip: consecutiveFailures > 8      
+        maxRetries: 100    
   targets:
     apps:
       backendapp-c:
