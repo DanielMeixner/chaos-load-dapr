@@ -24,6 +24,8 @@ setup.sh
 The application design is pretty simple. 
 Two frontends are sending a request to the backend app. The backend app is reaching out to an external serivce (an Azure funtion).
 
+![Architecture of demo application](images/dapr_resiliency.jpg)
+
 One of the frontends has dapr enabled, the other is running without dapr per default. The only difference is the deployment yaml file where the dapr configuration is done and where the target urls for both apps are configured.
 
 dapr has resiliency configured to run 5 retries if a request to the backend responds with anything else than an HTTP success status code.
