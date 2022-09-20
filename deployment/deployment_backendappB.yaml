@@ -1,26 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fe-no-dapr  
+  name: backendapp-b  
   labels:
-    app: fe-no-dapr    
+    app: backendapp-b    
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      app: fe-no-dapr
+      app: backendapp-b
   minReadySeconds: 1
   strategy:
     type: RollingUpdate    
   template:
     metadata:
       annotations:
-                   
+          dapr.io/enabled: "true"
+          dapr.io/app-id: "backendapp-b"          
+          dapr.io/app-port: "80"
+          dapr.io/config: "appconfig"
+          dapr.io/log-level: "debug"          
       labels:
-        app: fe-no-dapr        
+        app: backendapp-b        
     spec:
       containers:
-      - name: fe-no-dapr        
+      - name: backendapp-b        
         image: danielmeixner/generichttpendpoint
         imagePullPolicy: Always
         resources:
@@ -37,23 +41,23 @@ spec:
         env: 
           - name: "PORT"
             value: "80"          
-
           - name: "TARGETURL"
-            value: "http://backendapp-c"              
+            value: "http://dmx-getrandom.azurewebsites.net/api/HttpTriggerCSharp1"          
           - name: "TIMEOUT"
-            value: "5000"
+            value: "500"
           - name: "INSTANCENAME"
-            value: instanceNoDaprFrontend
+            value: backendapp-b
+---
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: fe-no-dapr
+  name: backendapp-b
   labels:
-    name: fe-no-dapr    
+    name: backendapp-b    
 spec:
   selector:
-    app: fe-no-dapr
+    app: backendapp-b
   type: LoadBalancer
   ports:
    - port: 80
@@ -61,5 +65,3 @@ spec:
      targetPort: 80
      protocol: TCP
 ---     
-
-

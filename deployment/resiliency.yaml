@@ -13,6 +13,6 @@ spec:
         maxRetries: 5    
   targets:
     apps:
-      backendapp-c:
+      backendapp-b:
         retry: retryXtimes
    

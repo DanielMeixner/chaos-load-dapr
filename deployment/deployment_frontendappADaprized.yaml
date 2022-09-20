@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backendapp-c  
+  name: frontendapp-a-daprized  
   labels:
-    app: backendapp-c    
+    app: frontendapp-a-daprized    
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: backendapp-c
+      app: frontendapp-a-daprized
   minReadySeconds: 1
   strategy:
     type: RollingUpdate    
@@ -16,15 +16,15 @@ spec:
     metadata:
       annotations:
           dapr.io/enabled: "true"
-          dapr.io/app-id: "backendapp-c"          
+          dapr.io/app-id: "frontendapp-a-daprized"          
           dapr.io/app-port: "80"
           dapr.io/config: "appconfig"
           dapr.io/log-level: "debug"          
       labels:
-        app: backendapp-c        
+        app: frontendapp-a-daprized        
     spec:
       containers:
-      - name: backendapp-c        
+      - name: frontendapp-a-daprized        
         image: danielmeixner/generichttpendpoint
         imagePullPolicy: Always
         resources:
@@ -42,22 +42,21 @@ spec:
           - name: "PORT"
             value: "80"          
           - name: "TARGETURL"
-            value: "http://dmx-getrandom.azurewebsites.net/api/HttpTriggerCSharp1"          
-          - name: "TIMEOUT"
-            value: "500"
+            value: "http://localhost:3500/v1.0/invoke/backendapp-b/method/"   
           - name: "INSTANCENAME"
-            value: instanceC
----
+            value: frontendapp-a-daprized        
+          - name: "TIMEOUT"
+            value: "5000"
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: backendapp-c
+  name: frontendapp-a-daprized
   labels:
-    name: backendapp-c    
+    name: frontendapp-a-daprized    
 spec:
   selector:
-    app: backendapp-c
+    app: frontendapp-a-daprized
   type: LoadBalancer
   ports:
    - port: 80
@@ -65,3 +64,4 @@ spec:
      targetPort: 80
      protocol: TCP
 ---     
+

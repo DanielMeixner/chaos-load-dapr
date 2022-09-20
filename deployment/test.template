@@ -1,28 +1,27 @@
 ### Requires "REST Client" in Visual Studio Code
+### Get it here: https://marketplace.visualstudio.com/items?itemName=humao.rest-client
 ### This allows a simple test right out of VSC.
-### Adust the IP adresses below. Run kubectl get svc to figure out the public IPs of your services.
-### https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+### Adust the IP adresses below, if required. 
+### Run "kubectl get svc" to figure out the public IPs of your services.
 
 
-### Call DAPR-enabled endpoint in cluster (frontendapp-a)
-###
-### -->A-->C-->function
+### Call DAPR-enabled endpoint in cluster (via frontend-a-daprized)
+### -->A(daprized)-->B-->function
 http://FE_DAPR/
 
 
-### Call endpoint without DAPR (fe-no-dapr)
-###
-### -->A_nodapr-->C-->function
-http://FE_NO_DAPR/
+### Call endpoint without pre-confiured DAPR (frontend-a)
+### -->A-->B-->function
+http://FE_A/
 
-### Call endpoint backendapp-c
-###
-### -->C-->function
-http://BACKEND/
 
-### Call your external service
-### This could be any http endpoint (even google.com)
-### Just make sure this endpoint is configured in the backendapp-C as targeturl
-###
+### Call endpoint backendapp-B directly
+### -->B-->function
+http://BACKEND_B/
+
+
+### Call your external service directly
+### This could be any http endpoint (even http://google.com)
+### Just make sure this endpoint is configured in the backendapp-b as targeturl
 ### -->function
 http://dmx-getrandom.azurewebsites.net/api/HttpTriggerCSharp1

@@ -10,7 +10,7 @@
       "default"
     ],
     "labelSelectors": {
-      "app": "backendapp-c"
+      "app": "backendapp-b"
     }
   },
   "delay": {
