@@ -40,7 +40,9 @@ If the request was triggered by the frontend with dapr enabled, the retry policy
 
 
 ## How to demo
-If you want to show off dapr resiliency capabilities just run a load test against the frontend without dapr. Then enable dapr by commenting in the alternate targeturl and the dapr annotations in deployment/deployment_frontednappA.yaml. Then run "kubectl apply -f deployment/deployment_frontednappA.yaml". As soon as the configuration is done the application runs reliably and you can run another loadtest to prove it.
+If you want to show off dapr resiliency capabilities just run a load test against the frontend without dapr.
+You can use Azure Load Test service or any other service. A simple IP based Quicktest will be good enough, just target the IP of the frontend-A service. 
+ Then enable dapr by commenting in the alternate targeturl and the dapr annotations in deployment/deployment_frontednappA.yaml. Then run "kubectl apply -f deployment/deployment_frontednappA.yaml". As soon as the configuration is done the application runs reliably and you can run another loadtest to prove it.
 
 ## Tips
 You can do yourself a favor and use Rest Client extension in Visual Studio Code. This allows you to simply execute rest calls. Just adjust the IPs in test/test.http
