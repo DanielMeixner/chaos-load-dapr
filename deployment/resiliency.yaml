@@ -7,12 +7,12 @@ spec:
     timeouts:
       general: 1s   
     retries:      
-      retry100times:
+      retryXtimes:
         policy: constant
         duration: 200ms
-        maxRetries: 100    
+        maxRetries: 5    
   targets:
     apps:
       backendapp-c:
-        retry: retry100times
+        retry: retryXtimes
    

@@ -9,23 +9,30 @@ var port = process.env.PORT || 8080;
 var targetURL = process.env.TARGETURL
 var instanceName = process.env.INSTANCENAME;
 
+
+
+/// endpoint
 app.get('/', function (req, res) {
   var o = {
-    headers: {      
+    headers: {
     },
     timeout: timeout,
     resolveWithFullResponse: true
   }
 
-  console.log("Requesting data from "+ targetURL);
+  console.log("Requesting data from " + targetURL);
+
+  /// call backend as specified in env var
+  /// expect answer in timeout as specified in o
+  /// otherwise return 500
   rp.get(targetURL, o)
     .then(function (data) {
       console.log("Data received from ... " + targetURL);
-      console.log("Response status code: " + data.statusCode);     
+      console.log("Response status code: " + data.statusCode);
 
-      res.write("Answer from " + instanceName + " calling: " +targetURL );
+      res.write("Answer from " + instanceName + " calling: " + targetURL + " \n");
       res.write(data.body)
-      console.log("Answer from " + instanceName + " calling: " +targetURL );
+      console.log("Answer from " + instanceName + " calling: " + targetURL+ " ");
       console.log(data.body);
       console.log("")
       res.send();
@@ -33,7 +40,7 @@ app.get('/', function (req, res) {
     },
       function (err) {
         // if backend request fails
-        console.log("Answer from " + instanceName + " calling: " +targetURL );
+        console.log("Answer from " + instanceName + " calling: " + targetURL);
         console.log("something bad happenend downstream, sending 500")
         console.log("")
         res.statusCode = 500;
@@ -43,7 +50,7 @@ app.get('/', function (req, res) {
 
 app.listen(port);
 console.log("generichttpendpoint running & listening on " + port + ".\nChange the port by adding an environment variable PORT.")
-console.log ("")
+console.log("")
 
 
 
