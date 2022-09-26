@@ -1,5 +1,5 @@
 MYRANDOM=$RANDOM
-RESOURCE_GROUP=$(daprchaosload+MYRANDOM)
+RESOURCE_GROUP=daprchaosload$MYRANDOM
 CLUSTERNAME=$(daprchaosloadcluster+MYRANDOM)
 SUBSCRIPTION_ID=$(az account show --query "id" -o tsv)
 az group create --name $RESOURCE_GROUP --location westeurope
