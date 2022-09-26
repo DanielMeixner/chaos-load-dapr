@@ -7,8 +7,8 @@ The overall story is like this:
 - Use dapr to fix issues in your app without touching code.
 
 ## Setup & Demo
-1. Clone this repo (e.g. into your Azure Cloud Shell)
-2. run this
+1. Clone this repo onto your local machine. 
+2. run this in bash
 ```
 cd deployment
 setup.sh
