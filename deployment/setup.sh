@@ -25,7 +25,7 @@ kubectl get po -n chaos-testing
 
 #enable chaos for aks - this is important. Otherwise you have to do it manually later on.
 #create target
-TARGET_ID=$(az rest --method put --url "https://management.azure.com/$RESOURCE_ID/providers/Microsoft.Chaos/targets/Microsoft-AzureKubernetesServiceChaosMesh?api-version=2021-09-15-preview" --body "{\"properties\":{}}" --query id)
+TARGET_ID=$(az rest --method put --url "https://management.azure.com/$RESOURCE_ID/providers/Microsoft.Chaos/targets/Microsoft-AzureKubernetesServiceChaosMesh?api-version=2021-09-15-preview" --body "{\"properties\":{}}" --query id -o tsv)
 echo $TARGET_ID
 
 # based on the template create a json file and replace values for target.  
