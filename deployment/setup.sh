@@ -1,3 +1,5 @@
+#!/bin/bash
+
 MYRANDOM=$RANDOM
 RESOURCE_GROUP=daprchaosload$MYRANDOM
 CLUSTERNAME=daprchaosloadcluster$MYRANDOM
@@ -38,7 +40,10 @@ az rest --method put --url "https://management.azure.com/subscriptions/$SUBSCRIP
 EXPERIMENT_NAME=NetworkingChaosExperiment$(date +%s)
 EXPERIMENT_PRINCIPAL_ID=$(az rest --method put --uri https://management.azure.com/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP/providers/Microsoft.Chaos/experiments/$EXPERIMENT_NAME?api-version=2021-09-15-preview --body @networkingchaos_working.json --query identity.principalId -o tsv)
 
-az role assignment create --role "Azure Kubernetes Service Cluster Admin Role" --assignee-object-id $EXPERIMENT_PRINCIPAL_ID --scope $RESOURCE_ID	
+# hack: we wait for 60 seconds here to make sure to avoid issues related to replication delays. This is pretty dirty and unstable. To be fixed later.
+sleep 60
+ASSIGNMENT_RESULT= $(az role assignment create --role "Azure Kubernetes Service Cluster Admin Role" --assignee-object-id $EXPERIMENT_PRINCIPAL_ID --scope $RESOURCE_ID)	
+
 
 # deploy app
 kubectl apply -f .
