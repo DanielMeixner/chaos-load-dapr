@@ -13,10 +13,7 @@ RESOURCE_ID=$(az aks show -n $CLUSTERNAME -g $RESOURCE_GROUP --query "id" -o tsv
 helm repo add chaos-mesh https://charts.chaos-mesh.org
 helm repo update
 kubectl create ns chaos-testing
-helm install chaos-mesh chaos-mesh/chaos-mesh --namespace=chaos-testing --set chaosDaemon.runtime=containerd --set chaosDaemon.socketPath=/run/containerd/containerd.sock
 
-# check if chaos pods are available
-kubectl get po -n chaos-testing
 
 #enable chaos for aks - this is important. Otherwise you have to do it manually later on.
 #create target
@@ -48,6 +45,13 @@ az rest --method post --uri https://management.azure.com/subscriptions/$SUBSCRIP
 
 # add dapr to your cluster
 az k8s-extension create --cluster-type managedClusters --cluster-name $CLUSTERNAME --resource-group $RESOURCE_GROUP --name myDaprExtension --extension-type Microsoft.Dapr
+
+
+#install dapr
+helm install chaos-mesh chaos-mesh/chaos-mesh --namespace=chaos-testing --set chaosDaemon.runtime=containerd --set chaosDaemon.socketPath=/run/containerd/containerd.sock
+
+# check if chaos pods are available
+kubectl get po -n chaos-testing
 
 # deploy app
 kubectl apply -f .
