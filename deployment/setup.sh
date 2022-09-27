@@ -38,8 +38,6 @@ sleep 60
 ASSIGNMENT_RESULT= $(az role assignment create --role "Azure Kubernetes Service Cluster Admin Role" --assignee-object-id $EXPERIMENT_PRINCIPAL_ID --scope $RESOURCE_ID)	
 
 
-# deploy app
-kubectl apply -f .
 
 #run experiment
 az rest --method post --uri https://management.azure.com/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP/providers/Microsoft.Chaos/experiments/$EXPERIMENT_NAME/start?api-version=2021-09-15-preview
@@ -51,8 +49,10 @@ az rest --method post --uri https://management.azure.com/subscriptions/$SUBSCRIP
 # add dapr to your cluster
 az k8s-extension create --cluster-type managedClusters --cluster-name $CLUSTERNAME --resource-group $RESOURCE_GROUP --name myDaprExtension --extension-type Microsoft.Dapr
 
+# deploy app
+kubectl apply -f .
 
-# 
+# create test file
 cp test.template test.http
 
 FE_DAPR=$(kubectl get svc  frontendapp-a-daprized -o json | jq -r .status.loadBalancer.ingress[0].ip)
