@@ -9,13 +9,6 @@ az aks create -g $RESOURCE_GROUP -n $CLUSTERNAME  --node-count 1
 az aks get-credentials -n $CLUSTERNAME -g $RESOURCE_GROUP
 RESOURCE_ID=$(az aks show -n $CLUSTERNAME -g $RESOURCE_GROUP --query "id" -o tsv)
 
-#if the steps below fail, make sure the provider is registered. Run the following steps and make sure the second step returns "registered"
-#az provider register --namespace Microsoft.KubernetesConfiguration
-#az provider list --query "[?contains(namespace,'Microsoft.KubernetesConfiguration')]" -o table
-
-# add dapr to your cluster
-az k8s-extension create --cluster-type managedClusters --cluster-name $CLUSTERNAME --resource-group $RESOURCE_GROUP --name myDaprExtension --extension-type Microsoft.Dapr
-
 #install chaos mesh into your cluster
 helm repo add chaos-mesh https://charts.chaos-mesh.org
 helm repo update
@@ -50,6 +43,13 @@ kubectl apply -f .
 
 #run experiment
 az rest --method post --uri https://management.azure.com/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP/providers/Microsoft.Chaos/experiments/$EXPERIMENT_NAME/start?api-version=2021-09-15-preview
+
+#if the steps below fail, make sure the provider is registered. Run the following steps and make sure the second step returns "registered"
+#az provider register --namespace Microsoft.KubernetesConfiguration
+#az provider list --query "[?contains(namespace,'Microsoft.KubernetesConfiguration')]" -o table
+
+# add dapr to your cluster
+az k8s-extension create --cluster-type managedClusters --cluster-name $CLUSTERNAME --resource-group $RESOURCE_GROUP --name myDaprExtension --extension-type Microsoft.Dapr
 
 
 # 
