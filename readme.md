@@ -10,8 +10,11 @@ The overall story is like this:
 1. Clone this repo onto your local machine. 
 2. run this in bash
 ```
+git clone https://github.com/DanielMeixner/chaos-load-dapr/
+cd chaos-laod-dapr
 cd deployment
-setup.sh
+bash setup.sh
+code . # if you have vsc installed
 ```
 3. As a result you will get a test.http file created in your deployment folder where some IPs will reflect the public endpoints of your services. Read the description in test.http to understand what they are doing.
 
