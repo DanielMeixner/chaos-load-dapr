@@ -55,6 +55,9 @@ kubectl apply -f .
 # create test file
 cp test.template test.http
 
+# hack: wait a few seconds for assignment of IPs. 
+sleep 60
+
 FE_DAPR=$(kubectl get svc  frontendapp-a-daprized -o json | jq -r .status.loadBalancer.ingress[0].ip)
 echo "FRONTEND A (with DAPR configured):" $FE_DAPR
 sed -i "s|FE_DAPR|$FE_DAPR|" test.http
