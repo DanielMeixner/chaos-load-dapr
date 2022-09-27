@@ -35,10 +35,6 @@ sleep 60
 ASSIGNMENT_RESULT= $(az role assignment create --role "Azure Kubernetes Service Cluster Admin Role" --assignee-object-id $EXPERIMENT_PRINCIPAL_ID --scope $RESOURCE_ID)	
 
 
-
-#run experiment
-az rest --method post --uri https://management.azure.com/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP/providers/Microsoft.Chaos/experiments/$EXPERIMENT_NAME/start?api-version=2021-09-15-preview
-
 #if the steps below fail, make sure the provider is registered. Run the following steps and make sure the second step returns "registered"
 #az provider register --namespace Microsoft.KubernetesConfiguration
 #az provider list --query "[?contains(namespace,'Microsoft.KubernetesConfiguration')]" -o table
@@ -74,3 +70,7 @@ sed -i "s|FE_A|$FE_A|" test.http
 BACKEND_B=$(kubectl get svc  backendapp-b -o json | jq -r .status.loadBalancer.ingress[0].ip )
 echo "BACKEND_B:" $BACKEND_B
 sed -i "s|BACKEND_B|$BACKEND_B|" test.http
+
+
+#run experiment
+az rest --method post --uri https://management.azure.com/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP/providers/Microsoft.Chaos/experiments/$EXPERIMENT_NAME/start?api-version=2021-09-15-preview
