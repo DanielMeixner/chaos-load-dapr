@@ -11,7 +11,7 @@ The overall story is like this:
 2. run this in bash
 ```
 git clone https://github.com/DanielMeixner/chaos-load-dapr/
-cd chaos-laod-dapr
+cd chaos-load-dapr
 cd deployment
 bash setup.sh
 code . # if you have vsc installed
